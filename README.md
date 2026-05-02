@@ -35,7 +35,9 @@ Vue Print Designer 是一款可视化打印设计器，面向业务表单、标�
 
 ## 集成示例
 
-我们提供了一个基于 **Vue 3 + Element Plus** 的完整集成示例项目，演示如何在实际业务系统中嵌入打印设计器。
+本仓库内置了基于 **dumi + React + Ant Design ProComponents** 的示例站点，用于本地调试、预览和 GitHub Pages 部署。
+
+同时也保留旧版 Vue 集成示例项目，便于迁移历史业务系统时参考。
 
 | 参数调试 | 设计器 | 暗色模式 |
 | --- | --- | --- |
@@ -43,7 +45,7 @@ Vue Print Designer 是一款可视化打印设计器，面向业务表单、标�
 
 - **项目地址**：[https://github.com/0ldFive/vue-designer-sample](https://github.com/0ldFive/vue-designer-sample)
 - **在线演示**：[https://0ldfive.github.io/vue-designer-sample/#/designer](https://0ldfive.github.io/vue-designer-sample/#/designer)
-- **技术栈**：Vue 3, TypeScript, Element Plus, Vite
+- **技术栈**：Vue 3, TypeScript, Element Plus
 
 ## 社区交流
 
@@ -59,7 +61,7 @@ Vue Print Designer 是一款可视化打印设计器，面向业务表单、标�
 
 - **可视化设计**：全功能拖拽设计器，支持文本/图片/表格/条码/二维码/形状等组件，内置标尺、网格与辅助对齐。
 - **智能分页**：自动处理长表格分页，支持表头/表尾重复，无需手写复杂逻辑，所见即所得。
-- **跨框架支持**：基于 Web Components，零依赖适配 Vue/React/Angular/原生 HTML 等所有技术栈。
+- **React / Ant Design Pro 集成**：基于 React 18、Ant Design 5 与 ProComponents 构建，适合直接嵌入 React / Ant Design Pro 项目。
 - **全场景打印**：
   - **浏览器打印**：原生预览与打印。
   - **导出**：支持生成 PDF、图片（拼接/分片）。
@@ -84,110 +86,49 @@ PrintDot Client 是配套的桌面打印助手（Wails + Vue），用于设备�
 
 ## 快速开始
 
-### 方式一：下载源码自行改造与集成 API
+### React / Ant Design Pro 项目接入
 
-适合有深度定制需求的团队。
+适合在现有 React、Ant Design Pro 项目中作为页面或业务模块集成。
 
 #### 环境要求
 
 - Node.js >= 16.0.0
 - npm >= 7.0.0 或 yarn / pnpm
 
-#### 建议接入点
-
-- 模板 CRUD：`useTemplateStore`（可替换为接口读写）
-- 自定义元素 CRUD：`useDesignerStore` 中的 `customElements`
-- 变量与模板数据：组件实例方法 `setVariables` / `loadTemplateData`
-
-自定义元素扩展请查看：[自定义元素扩展指南](https://printdot.cc/docs)
-
-### 方式二：npm 组件（Web Components）
-
-适合任何技术栈（Vue/React/Angular/原生）。Web Components 方式**支持 Vue 2**（作为自定义元素使用），无需 Vue 2 组件适配。
-
-详细参数、CRUD 与 JSON 示例请查看：[Web Components API 用户手册](https://printdot.cc/docs)
-
-#### 安装依赖
-
-选择任一包管理器安装依赖：
+#### 本地开发
 
 ```bash
-npm i vue-print-designer
-# 或
-pnpm add vue-print-designer
-# 或
-yarn add vue-print-designer
+npm install
+npm run dev
 ```
 
-#### 1) 使用组件（Vue 3 / Vite）
+本地示例站点使用与 `@ant-design/pro-components` 一致的 `dumi dev` 工具链。
 
-在入口文件中引入：
+#### 组件库构建
 
-```ts
-// main.ts
-import 'vue-print-designer';
-import 'vue-print-designer/style.css';
+```bash
+npm run build
 ```
 
-然后在页面里直接使用自定义元素：
+该命令使用与 `@ant-design/pro-components` 相同的 `father build` 工具链，输出 `es/`、`lib/` 和 `dist/` 产物。
 
-```vue
-<template>
-    <print-designer id="designer"></print-designer>
-</template>
+#### 示例站点构建
+
+```bash
+npm run build:app
 ```
 
-#### 2) Vue 3 选项式 API：初始化与调用分离
+该命令会先执行组件库构建，再使用 `dumi build` 构建示例站点，输出到 `dist/`，用于预览或部署 GitHub Pages。
 
-**设计器页（初始化与编辑）**
+#### 建议集成点
 
-```vue
-<script lang="ts">
-export default {
-    mounted() {
-        const el = this.$refs.designerRef as any;
-        // 初始化品牌与主题
-        el.setBranding({ title: '业务打印设计器', showLogo: true });
-        el.setTheme('light');
-        // 初始化模板或变量
-        el.loadTemplateData(/* 从你的 API 获取的数据 */);
-        el.setVariables({ orderNo: 'A001' }, { merge: true });
-    }
-};
-</script>
+- 主设计器：`src/components/PrintDesigner.tsx`
+- 示例入口：`site/App.tsx`
+- 设计器状态：`src/state/designer.tsx`
+- 模板存储：`src/state/templates.ts`（可替换为接口读写）
+- 变量与模板数据：`PrintDesignerHandle` 中的 `setVariables` / `loadTemplateData`
 
-<template>
-    <print-designer ref="designerRef"></print-designer>
-</template>
-```
-
-**业务页面（随处调用打印/导出）**
-
-```ts
-// 任何页面中只要能拿到元素实例即可
-const el = document.querySelector('print-designer') as any;
-
-// 打印
-await el.print({ mode: 'browser' });
-
-// 导出 PDF / 图片 / HTML / Blob
-await el.export({ type: 'pdf', filename: 'order-20240223.pdf' });
-await el.export({ type: 'html', filename: 'order-20240223.html' });
-const pdfBlob = await el.export({ type: 'pdfBlob' });
-```
-
-#### 3) 事件回调
-
-```ts
-el.addEventListener('ready', () => {});
-el.addEventListener('printed', (e) => {});
-el.addEventListener('exported', (e) => {
-    const blob = e.detail?.blob;
-});
-el.addEventListener('error', (e) => {
-    console.error(e.detail?.scope, e.detail?.error);
-});
-```
+自定义元素扩展请查看：[自定义元素扩展指南](https://printdot.cc/docs)
 
 
 
@@ -195,30 +136,22 @@ el.addEventListener('error', (e) => {
 
 ```
 src/
-├── assets/               # 静态资源（Logo、图标）
-├── components/           # Vue 组件
-│   ├── canvas/           # 画布组件
-│   ├── common/           # 通用组件（颜色选择器、弹窗等）
-│   ├── elements/         # 打印元素组件（文本、图片、表格、条码等）
-│   ├── layout/           # 布局组件（头部、侧边栏、属性面板等）
-│   ├── print/            # 打印渲染组件
-│   └── properties/       # 属性配置组件
-├── composables/          # Vue 组合式函数
-│   ├── useAutoSave.ts    # 自动保存
-│   ├── usePrintSettings.ts # 打印设置
-│   └── useTheme.ts       # 主题管理
+├── components/           # React 组件
+│   ├── designer/         # 设计器工作台、工具条、画布与属性面板
+│   ├── elements/         # 打印元素渲染（文本、图片、表格、条码等）
+│   └── print/            # 打印渲染组件
 ├── constants/            # 常量定义
 ├── locales/              # 国际化语言包
-├── stores/               # Pinia 状态管理
+├── state/                # React Context / reducer 状态管理
 ├── types/                # TypeScript 类型声明
-├── utils/                # 工具函数
-├── web-component.ts      # Web Components 入口
-└── main.ts               # 应用入口
+└── utils/                # 工具函数
+site/
+└── App.tsx               # dumi 示例站点入口
 ```
 
 ## 国际化
 
-项目内置中文（zh）和英文（en）语言支持，默认根据浏览器语言自动切换，也可通过 API 手动设置。
+项目内置中文（zh）和英文（en）语言支持，默认根据浏览器语言选择。
 
 ## License
 

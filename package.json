@@ -1,67 +1,82 @@
 {
-  "name": "vue-print-designer",
-  "private": false,
+  "name": "react-print-designer",
   "version": "1.0.95",
   "license": "AGPL-3.0-only",
   "type": "module",
-  "main": "dist/print-designer.umd.js",
-  "module": "dist/print-designer.es.js",
-  "types": "dist/web-component.d.ts",
-  "style": "dist/print-designer.css",
+  "sideEffects": [
+    "*.css",
+    "**/*.css"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
+  "unpkg": "dist/react-print-designer.min.js",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "README.md",
+    "README_EN.md"
+  ],
   "exports": {
     ".": {
-      "types": "./dist/web-component.d.ts",
-      "import": "./dist/print-designer.es.js",
-      "require": "./dist/print-designer.umd.js"
+      "types": "./es/index.d.ts",
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
     },
-    "./style.css": "./dist/print-designer.css"
+    "./style.css": "./es/style.css"
   },
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/0ldFive/Vue-Print-Designer.git"
   },
   "homepage": "https://printdot.cc",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "build:wc": "vue-tsc -b && vite build --config vite.config.wc.ts && node ./scripts/copy-wc-types.mjs",
-    "preview": "vite preview"
+    "dev": "dumi dev",
+    "start": "dumi dev",
+    "build": "father build && npm run build:types",
+    "build:bundle": "father build",
+    "build:types": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "site": "npm run build && cross-env SITE_DEPLOY=TRUE dumi build",
+    "build:app": "npm run site",
+    "tsc": "tsc --noEmit",
+    "preview": "dumi preview"
   },
   "dependencies": {
-    "@guolao/vue-monaco-editor": "^1.6.0",
+    "@ant-design/icons": "^6.2.2",
     "canvg": "^3.0.11",
     "dom-to-image-more": "^3.7.2",
     "jsbarcode": "^3.12.3",
     "jspdf": "4.2",
     "jszip": "^3.10.1",
     "lodash": "^4.17.21",
-    "pinia": "^2.3.0",
     "qrcode": "^1.5.4",
-    "uuid": "^11.0.3",
-    "vue": "^3.5.13",
-    "vue-i18n": "^11.2.8"
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "@iconify-json/material-symbols": "^1.2.53",
+    "@ant-design/pro-components": "^3.1.12-0",
     "@types/jsbarcode": "^3.11.4",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.2",
     "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@types/uuid": "^10.0.0",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/tsconfig": "^0.7.0",
+    "antd": "^6.3.7",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^10.1.0",
+    "dumi": "^2.4.23",
+    "father": "^4.6.15",
     "postcss": "^8.4.49",
-    "rollup-plugin-visualizer": "^7.0.1",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.17",
-    "terser": "^5.46.1",
-    "typescript": "~5.6.2",
-    "unplugin-icons": "^23.0.1",
-    "vite": "^6.0.1",
-    "vue-tsc": "^2.1.10"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsc-alias": "^1.8.10",
+    "typescript": "~5.6.2"
+  },
+  "peerDependencies": {
+    "@ant-design/pro-components": ">=3.1.12-0",
+    "antd": ">=6.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }

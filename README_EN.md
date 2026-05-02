@@ -33,7 +33,9 @@ Vue Print Designer is a visual print designer for business forms, labels, receip
 
 ## Integration Example
 
-To help developers get started quickly, we provide a complete integration example based on **Vue 3 + Element Plus**. This project demonstrates how to embed the print designer into a real-world business application.
+This repository now ships a **dumi + React + Ant Design ProComponents** demo site for local development, previewing, and GitHub Pages deployment.
+
+The legacy Vue integration sample is still listed for teams migrating older business applications.
 
 | Parameter Debugging | Designer | Dark Mode |
 | --- | --- | --- |
@@ -41,7 +43,7 @@ To help developers get started quickly, we provide a complete integration exampl
 
 - **Repository**: [https://github.com/0ldFive/vue-designer-sample](https://github.com/0ldFive/vue-designer-sample)
 - **Live Demo**: [https://0ldfive.github.io/vue-designer-sample/#/designer](https://0ldfive.github.io/vue-designer-sample/#/designer)
-- **Tech Stack**: Vue 3, TypeScript, Element Plus, Vite
+- **Tech Stack**: Vue 3, TypeScript, Element Plus
 
 ## Community
 
@@ -57,7 +59,7 @@ Join our QQ group for usage discussions, integration tips, and troubleshooting.
 
 - **Visual Design**: Full-featured drag-and-drop designer supporting text, images, tables, barcodes, QR codes, and shapes. Includes rulers, grids, and alignment tools.
 - **Smart Pagination**: Automatically handles long table pagination with header/footer repetition. No complex manual logic required—what you see is what you get.
-- **Cross-Framework**: Built on Web Components, zero-dependency compatibility with Vue, React, Angular, and native HTML.
+- **React / Ant Design Pro Integration**: Built with React 18, Ant Design 5, and ProComponents for direct use in React / Ant Design Pro projects.
 - **Comprehensive Printing**:
   - **Browser Print**: Native preview and print.
   - **Export**: Generate PDF and images (merge/split supported).
@@ -82,109 +84,49 @@ PrintDot Client is the companion desktop print helper (Wails + Vue) for device d
 
 ## Quick Start
 
-### Option A: Build from Source and Integrate Your API
+### React / Ant Design Pro Integration
 
-Best for deep customization.
+Use it as a page or business module inside an existing React / Ant Design Pro project.
 
 #### Requirements
 
 - Node.js >= 16.0.0
 - npm >= 7.0.0 or yarn / pnpm
 
-#### Recommended integration points
-
-- Template CRUD: `useTemplateStore` (replace with your API)
-- Custom elements CRUD: `customElements` in `useDesignerStore`
-- Variables and template data: instance methods `setVariables` / `loadTemplateData`
-
-Custom element extension guide: [docs/en/guide/custom-element.md](https://github.com/0ldFive/Vue-Print-Designer/blob/master/docs/en/guide/custom-element.md)
-
-### Option B: npm Package (Web Components)
-
-Works with any stack (Vue/React/Angular/Vanilla). Web Components **supports Vue 2** as a custom element, no Vue 2 component adapter required.
-
-Parameters, CRUD, and JSON examples: [docs/en/guide/web-components-guide.md](https://github.com/0ldFive/Vue-Print-Designer/blob/master/docs/en/guide/web-components-guide.md)
-
-#### Install dependencies
-
-Install with any package manager:
+#### Local development
 
 ```bash
-npm i vue-print-designer
-# or
-pnpm add vue-print-designer
-# or
-yarn add vue-print-designer
+npm install
+npm run dev
 ```
 
-#### 1) Use the component (Vue 3 / Vite)
+The local demo site now uses the same `dumi dev` toolchain as `@ant-design/pro-components`.
 
-Import in the entry file:
+#### Library build
 
-```ts
-// main.ts
-import 'vue-print-designer';
-import 'vue-print-designer/style.css';
+```bash
+npm run build
 ```
 
-Use the custom element in your template:
+This command uses the same `father build` toolchain as `@ant-design/pro-components` and emits `es/`, `lib/`, and `dist/` outputs.
 
-```vue
-<template>
-    <print-designer id="designer"></print-designer>
-</template>
+#### Demo app build
+
+```bash
+npm run build:app
 ```
 
-#### 2) Vue 3 Options API: Separate init from usage
+This command builds the component library first, then uses `dumi build` for the demo site. The site is emitted to `dist/` for previewing or GitHub Pages deployment.
 
-**Designer page (init and editing)**
+#### Recommended integration points
 
-```vue
-<script lang="ts">
-export default {
-    mounted() {
-        const el = this.$refs.designerRef as any;
-        // Initialize branding and theme
-        el.setBranding({ title: 'Business Print Designer', showLogo: true });
-        el.setTheme('light');
-        // Initialize templates or variables
-        el.loadTemplateData(/* data from your API */);
-        el.setVariables({ orderNo: 'A001' }, { merge: true });
-    }
-};
-</script>
+- Main designer: `src/components/PrintDesigner.tsx`
+- Demo entry: `site/App.tsx`
+- Designer state: `src/state/designer.tsx`
+- Template storage: `src/state/templates.ts` (replace with your API if needed)
+- Variables and template data: `setVariables` / `loadTemplateData` on `PrintDesignerHandle`
 
-<template>
-    <print-designer ref="designerRef"></print-designer>
-</template>
-```
-
-**Business pages (print/export anywhere)**
-
-```ts
-const el = document.querySelector('print-designer') as any;
-
-// Print
-await el.print({ mode: 'browser' });
-
-// Export PDF / image / html / blob
-await el.export({ type: 'pdf', filename: 'order-20240223.pdf' });
-await el.export({ type: 'html', filename: 'order-20240223.html' });
-const pdfBlob = await el.export({ type: 'pdfBlob' });
-```
-
-#### 3) Event hooks
-
-```ts
-el.addEventListener('ready', () => {});
-el.addEventListener('printed', (e) => {});
-el.addEventListener('exported', (e) => {
-    const blob = e.detail?.blob;
-});
-el.addEventListener('error', (e) => {
-    console.error(e.detail?.scope, e.detail?.error);
-});
-```
+Custom element extension guide: [docs/en/guide/custom-element.md](https://github.com/0ldFive/Vue-Print-Designer/blob/master/docs/en/guide/custom-element.md)
 
 
 
@@ -192,30 +134,22 @@ el.addEventListener('error', (e) => {
 
 ```
 src/
-├── assets/               # Static assets (logo, icons)
-├── components/           # Vue components
-│   ├── canvas/           # Canvas components
-│   ├── common/           # Common components (color picker, modals)
-│   ├── elements/         # Print elements (text, image, table, barcode)
-│   ├── layout/           # Layout (header, sidebar, properties)
-│   ├── print/            # Print renderer
-│   └── properties/       # Property panels
-├── composables/          # Vue composables
-│   ├── useAutoSave.ts    # Auto save
-│   ├── usePrintSettings.ts # Print settings
-│   └── useTheme.ts       # Theme management
+├── components/           # React components
+│   ├── designer/         # Designer workspace, toolbar, canvas, properties
+│   ├── elements/         # Print element renderers
+│   └── print/            # Print renderer
 ├── constants/            # Constants
 ├── locales/              # i18n
-├── stores/               # Pinia stores
+├── state/                # React Context / reducer state
 ├── types/                # TypeScript types
-├── utils/                # Utilities
-├── web-component.ts      # Web Components entry
-└── main.ts               # App entry
+└── utils/                # Utilities
+site/
+└── App.tsx               # dumi demo site entry
 ```
 
 ## i18n
 
-Built-in Chinese (zh) and English (en). The default follows browser language and can be switched by API.
+Built-in Chinese (zh) and English (en). The default follows the browser language.
 
 ## License
 

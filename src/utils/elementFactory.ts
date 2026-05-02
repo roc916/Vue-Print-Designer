@@ -148,7 +148,7 @@ export const elementConfigRegistry: Partial<Record<ElementType, ElementConfigGen
   [ElementType.BARCODE]: () => ({
     height: 80,
     content: '12345678',
-    style: { backgroundColor: 'transparent', borderColor: 'transparent' }
+    style: { backgroundColor: 'transparent', borderColor: 'transparent', borderStyle: 'solid', borderWidth: 0, barcodeFormat: 'CODE128', showText: true }
   }),
 
   [ElementType.QRCODE]: () => ({
@@ -159,17 +159,17 @@ export const elementConfigRegistry: Partial<Record<ElementType, ElementConfigGen
 
   [ElementType.LINE]: () => ({
     height: 20,
-    style: { borderColor: '#000000' }
+    style: { borderColor: '#000000', borderStyle: 'solid', borderWidth: 1 }
   }),
 
   [ElementType.RECT]: () => ({
     width: 100,
-    style: { backgroundColor: 'transparent', borderColor: '#000000' }
+    style: { backgroundColor: 'transparent', borderColor: '#000000', borderStyle: 'solid', borderWidth: 1, borderRadius: 0 }
   }),
 
   [ElementType.CIRCLE]: () => ({
     width: 100,
-    style: { backgroundColor: 'transparent', borderColor: '#000000' }
+    style: { backgroundColor: 'transparent', borderColor: '#000000', borderStyle: 'solid', borderWidth: 1 }
   }),
 
   [ElementType.PAGE_NUMBER]: () => ({
@@ -213,6 +213,9 @@ export const elementConfigRegistry: Partial<Record<ElementType, ElementConfigGen
     style: {
       backgroundColor: 'transparent',
       borderColor: '#000000',
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderRadius: 0,
       headerBackgroundColor: '#f3f4f6',
       headerColor: '#000000',
       footerBackgroundColor: '#f9fafb',
