@@ -345,8 +345,7 @@ select {
 }
 
 .designer-properties .ant-input-number-suffix,
-.designer-properties .ant-select-arrow,
-.designer-properties .ant-color-picker-trigger-text {
+.designer-properties .ant-select-arrow {
   color: var(--designer-muted);
   font-size: 12px;
 }
@@ -372,14 +371,6 @@ select {
 .designer-properties .ant-btn-text:not(:disabled):hover {
   color: var(--designer-primary);
   background: var(--designer-primary-soft);
-}
-
-.designer-properties .ant-color-picker-trigger {
-  width: 100%;
-  justify-content: flex-start;
-  border-color: var(--designer-border);
-  color: var(--designer-text);
-  font-size: 12px;
 }
 
 .designer-properties .ant-empty-description {
@@ -776,11 +767,6 @@ select {
   margin-bottom: 0;
 }
 
-.designer-form-grid.compact .ant-color-picker-trigger,
-.designer-form-grid.compact .ant-input-number {
-  min-height: 40px;
-}
-
 .designer-property-section {
   display: grid;
   gap: 10px;
@@ -834,41 +820,6 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.designer-element-summary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin-bottom: 0;
-  overflow: hidden;
-  border: 1px solid var(--designer-border);
-  border-radius: 6px;
-  background: var(--designer-border);
-}
-
-.designer-element-summary > div {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 8px;
-  align-items: center;
-  min-height: 34px;
-  padding: 7px 8px;
-  background: #ffffff;
-  font-size: 12px;
-}
-
-.designer-element-summary span {
-  color: var(--designer-muted);
-  font-weight: 500;
-}
-
-.designer-element-summary strong,
-.designer-element-summary .ant-typography {
-  min-width: 0;
-  margin: 0;
-  color: var(--designer-text);
 }
 
 .designer-color-field {

@@ -1,4 +1,4 @@
-import { Button, ColorPicker, Empty, Input, InputNumber, Slider, Space, Tabs, Typography, App } from 'antd';
+import { Button, ColorPicker, Descriptions, Empty, Input, InputNumber, Slider, Space, Tabs, Typography, App } from 'antd';
 import { ProCard, ProForm, ProFormDigit, ProFormSelect, ProFormSwitch, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ElementType, type PrintElement } from '@/types';
@@ -75,7 +75,7 @@ const NumberField = ({ label, value, min, max, step, onChange }: { label: string
 const ColorField = ({ label, value, onChange }: { label: string; value?: string; onChange: (value: string) => void }) => (
   <div className="designer-color-field">
     <FieldLabel label={label} />
-    <ColorPicker value={value || '#000000'} showText onChange={(_, hex) => onChange(hex)} />
+    <ColorPicker value={value || '#000000'} showText onChange={(color) => onChange(color.toHexString())} />
   </div>
 );
 
@@ -133,6 +133,7 @@ export const PropertiesPanel = ({ t }: PropertiesPanelProps) => {
   const supportsColor = colorElementTypes.has(element.type);
   const supportsFill = element.type !== ElementType.LINE;
   const supportsCornerRadius = element.type !== ElementType.LINE && element.type !== ElementType.CIRCLE;
+  const colorLabel = element.type === ElementType.TEXT ? t('properties.label.textColor') : t('properties.label.color');
   const borderWidth = element.style?.borderWidth ?? (defaultBorderElementTypes.has(element.type) ? 1 : 0);
   const borderColor = element.style?.borderColor && element.style.borderColor !== 'transparent' ? element.style.borderColor : '#111827';
   const updateBorderWidth = (value: number) => {
@@ -234,7 +235,7 @@ export const PropertiesPanel = ({ t }: PropertiesPanelProps) => {
                     <div className="designer-property-section">
                       <Typography.Text className="designer-property-section-title">{t('properties.section.appearance')}</Typography.Text>
                       <div className="designer-form-grid two compact">
-                        {supportsColor && <ColorField label={t('properties.label.color')} value={element.style?.color} onChange={(value) => updateStyle({ color: value })} />}
+                        {supportsColor && <ColorField label={colorLabel} value={element.style?.color} onChange={(value) => updateStyle({ color: value })} />}
                         {supportsFill && <ColorField label={t('properties.label.backgroundColor')} value={element.style?.backgroundColor || '#ffffff'} onChange={(value) => updateStyle({ backgroundColor: value })} />}
                       </div>
                     </div>
@@ -272,11 +273,17 @@ export const PropertiesPanel = ({ t }: PropertiesPanelProps) => {
               key: 'advanced',
               label: t('properties.tab.advanced'),
               children: (
-                <div className="designer-element-summary">
-                  <div><span>{t('properties.label.type')}</span><strong>{t(`elements.${element.type}`)}</strong></div>
-                  <div><span>ID</span><Typography.Text copyable ellipsis>{element.id}</Typography.Text></div>
-                  <div><span>{t('properties.label.zIndex')}</span><strong>{element.style?.zIndex || 1}</strong></div>
-                </div>
+                <Descriptions
+                  className="designer-element-summary"
+                  column={1}
+                  size="small"
+                  bordered
+                  items={[
+                    { key: 'type', label: t('properties.label.type'), children: t(`elements.${element.type}`) },
+                    { key: 'id', label: 'ID', children: <Typography.Text copyable ellipsis>{element.id}</Typography.Text> },
+                    { key: 'zIndex', label: t('properties.label.zIndex'), children: element.style?.zIndex || 1 }
+                  ]}
+                />
               )
             }
           ]}

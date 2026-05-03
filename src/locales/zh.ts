@@ -288,7 +288,7 @@ export default {
       headerHeight: '表头高度',
       rowHeight: '行高',
       footerHeight: '表脚高度',
-      textColor: '文本颜色',
+      textColor: '文字颜色',
       editCell: '编辑单元格',
       editColumn: '编辑列',
       headerText: '表头文本',

@@ -195,7 +195,7 @@ export const DesignerTopToolbar = ({
       </div>
       <div className="designer-paper-row">
         <span>{t('editor.backgroundColor')}</span>
-        <ColorPicker value={state.canvasBackground} onChange={(_, hex) => dispatch({ type: 'set-canvas', patch: { canvasBackground: hex } })} />
+        <ColorPicker value={state.canvasBackground} onChange={(color) => dispatch({ type: 'set-canvas', patch: { canvasBackground: color.toHexString() } })} />
       </div>
       <div className="designer-paper-switches">
         <div className="designer-paper-row"><span>{t('editor.showGrid')}</span><Switch size="small" checked={state.showGrid} onChange={(checked) => dispatch({ type: 'set-canvas', patch: { showGrid: checked } })} /></div>
@@ -299,7 +299,7 @@ export const DesignerTopToolbar = ({
         <ColorPicker
           disabled={fontControlsDisabled}
           value={colorToHex(element?.style?.color)}
-          onChange={(_, hex) => updateSelectedStyle({ color: hex })}
+          onChange={(color) => updateSelectedStyle({ color: color.toHexString() })}
         >
           <Tooltip title={t('editor.textColor')}>
             <Button size="small" icon={<FontColorsOutlined />} disabled={fontControlsDisabled} />
@@ -308,7 +308,7 @@ export const DesignerTopToolbar = ({
         <ColorPicker
           disabled={fontControlsDisabled}
           value={colorToHex(element?.style?.backgroundColor, '#ffffff')}
-          onChange={(_, hex) => updateSelectedStyle({ backgroundColor: hex })}
+          onChange={(color) => updateSelectedStyle({ backgroundColor: color.toHexString() })}
         >
           <Tooltip title={t('editor.backgroundColor')}>
             <Button size="small" icon={<BgColorsOutlined />} disabled={fontControlsDisabled} />
