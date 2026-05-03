@@ -144,7 +144,6 @@ export default {
   },
   sidebar: {
     elements: 'Elements',
-    dragToCanvas: 'Drag elements to the canvas',
     standard: 'Standard',
     custom: 'Custom',
     general: 'General',

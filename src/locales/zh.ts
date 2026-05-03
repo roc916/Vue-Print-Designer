@@ -145,7 +145,6 @@ export default {
   sidebar: {
     custom: '自定义',
     elements: '元素库',
-    dragToCanvas: '拖拽元素到画布',
     standard: '标准元素',
     general: '通用',
     dataCodes: '数据 & 条码',

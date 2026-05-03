@@ -1,4 +1,4 @@
-import { Tabs, Typography } from 'antd';
+import { Tabs } from 'antd';
 import { ProCard } from '@ant-design/pro-components';
 import {
   AppstoreAddOutlined,
@@ -44,10 +44,7 @@ export const DesignerSidebar = ({
             key: 'elements',
             label: t('sidebar.elements'),
             children: (
-              <ProCard ghost gutter={[8, 8]} direction="column">
-                <Typography.Text type="secondary" className="designer-panel-hint">
-                  {t('sidebar.dragToCanvas')}
-                </Typography.Text>
+              <div className="designer-tool-groups">
                 {['sidebar.general', 'sidebar.dataCodes', 'sidebar.shapes'].map((group) => (
                   <ProCard key={group} title={t(group)} size="small" className="designer-tool-card">
                     <div className="designer-element-grid">
@@ -67,7 +64,7 @@ export const DesignerSidebar = ({
                     </div>
                   </ProCard>
                 ))}
-              </ProCard>
+              </div>
             )
           }
         ]}

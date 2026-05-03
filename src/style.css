@@ -389,6 +389,11 @@ select {
   border-radius: 6px;
 }
 
+.designer-tool-groups {
+  display: grid;
+  gap: 8px;
+}
+
 .designer-element-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
