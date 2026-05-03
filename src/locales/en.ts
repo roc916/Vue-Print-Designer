@@ -158,24 +158,7 @@ export default {
     qrcode: 'QR Code',
     line: 'Line',
     rect: 'Rect',
-    circle: 'Circle',
-    noCustomElements: 'No custom elements saved yet.',
-    moreOptions: 'More options',
-    editElement: 'Design Element',
-    edit: 'Edit',
-    copy: 'Copy',
-    delete: 'Delete',
-    editModalTitle: 'Edit Custom Element',
-    enterNamePlaceholder: 'Enter element name...',
-    confirmDelete: 'Are you sure you want to delete "{name}"?',
-    confirmSwitchEdit: 'Exit current edit for "{name}"?',
-    confirmExitEdit: 'You have unsaved changes. Exit anyway?',
-    editingElement: 'Editing custom element: {name}',
-    saveEdit: 'Save',
-    saveAs: 'Save As',
-    exitEdit: 'Exit',
-    saveAsCustomElement: 'Save as Custom Element',
-    editSaveFailed: 'Nothing to save. Please select an element.'
+    circle: 'Circle'
   },
   elements: {
     text: 'Text',
@@ -233,9 +216,7 @@ export default {
       moveDown: 'Move Down',
       copyId: 'Copy ID',
       copied: 'Copied!',
-      saveCustom: 'Save as Custom Element',
-      deleteElement: 'Delete Current Element',
-      saveCustomModal: 'Save Custom Element'
+      deleteElement: 'Delete Current Element'
     },
     empty: {
       noSelection: 'No Selection',
@@ -569,14 +550,6 @@ export default {
     templateDeleteFailed: 'Failed to delete template.',
     templateEditFailed: 'Failed to edit template.',
     templateCopyFailed: 'Failed to copy template.',
-    templateUpsertFailed: 'Failed to save template.',
-    customElementReadOnly: 'System custom element is read-only and cannot be edited.',
-    customElementCopyNotAllowed: 'System custom element cannot be copied.',
-    customElementDeleteNotAllowed: 'System custom element cannot be deleted.',
-    customElementCopyFailed: 'Failed to copy custom element.',
-    customElementAddFailed: 'Failed to add custom element.',
-    customElementRemoveFailed: 'Failed to remove custom element.',
-    customElementEditFailed: 'Failed to edit custom element.',
-    customElementUpsertFailed: 'Failed to save custom element.'
+    templateUpsertFailed: 'Failed to save template.'
   }
 }

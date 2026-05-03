@@ -128,9 +128,6 @@ npm run build:app
 - 模板存储：`src/state/templates.ts`（可替换为接口读写）
 - 变量与模板数据：`PrintDesignerHandle` 中的 `setVariables` / `loadTemplateData`
 
-自定义元素扩展请查看：[自定义元素扩展指南](https://printdot.cc/docs)
-
-
 
 ## 项目结构
 

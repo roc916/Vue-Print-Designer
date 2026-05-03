@@ -158,24 +158,7 @@ export default {
     qrcode: '二维码',
     line: '直线',
     rect: '矩形',
-    circle: '圆形',
-    noCustomElements: '暂无自定义元素',
-    moreOptions: '更多选项',
-    editElement: '设计元素',
-    edit: '编辑',
-    copy: '复制',
-    delete: '删除',
-    editModalTitle: '编辑自定义元素',
-    enterNamePlaceholder: '输入元素名称...',
-    confirmDelete: '确定要删除 "{name}" 吗？',
-    confirmSwitchEdit: '退出当前对 "{name}" 的编辑？',
-    confirmExitEdit: '存在未保存的更改，确定退出吗？',
-    editingElement: '正在编辑自定义元素：{name}',
-    saveEdit: '保存',
-    saveAs: '另存为',
-    exitEdit: '退出',
-    saveAsCustomElement: '另存为自定义元素',
-    editSaveFailed: '没有可保存的元素，请先选中一个元素。'
+    circle: '圆形'
   },
   elements: {
     text: '文本',
@@ -233,9 +216,7 @@ export default {
       moveDown: '下移一层',
       copyId: '复制 ID',
       copied: '已复制!',
-      saveCustom: '保存为自定义元素',
-      deleteElement: '删除当前元素',
-      saveCustomModal: '保存自定义元素'
+      deleteElement: '删除当前元素'
     },
     empty: {
       noSelection: '未选择',
@@ -576,14 +557,6 @@ export default {
     templateDeleteFailed: '删除模板失败',
     templateEditFailed: '编辑模板失败',
     templateCopyFailed: '复制模板失败',
-    templateUpsertFailed: '保存模板失败',
-    customElementReadOnly: '系统自定义元素为只读，无法编辑',
-    customElementCopyNotAllowed: '系统自定义元素不允许复制',
-    customElementDeleteNotAllowed: '系统自定义元素无法删除',
-    customElementCopyFailed: '复制自定义元素失败',
-    customElementAddFailed: '新增自定义元素失败',
-    customElementRemoveFailed: '删除自定义元素失败',
-    customElementEditFailed: '编辑自定义元素失败',
-    customElementUpsertFailed: '保存自定义元素失败'
+    templateUpsertFailed: '保存模板失败'
   }
 }

@@ -71,19 +71,6 @@ export const extractStandardTemplateFields = (entity: any) => {
   return standard;
 };
 
-export const extractStandardCustomElementFields = (entity: any) => {
-  if (!isRecord(entity)) return {};
-  const standard: any = {
-    id: entity.id,
-    name: entity.name,
-    element: entity.element,
-    testData: entity.testData,
-  };
-  if (entity.permissions !== undefined) standard.permissions = entity.permissions;
-  if (entity.ext !== undefined) standard.ext = entity.ext;
-  return standard;
-};
-
 export const normalizeEntityConstraints = <T extends Record<string, any>>(entity: T): T => {
   const permissions = resolveEntityPermissions(entity);
   const normalizedExt = isRecord(entity.ext) ? entity.ext : {};
@@ -102,8 +89,6 @@ export const normalizeEntityConstraints = <T extends Record<string, any>>(entity
   // Conditionally add entity-specific standard fields
   if ('data' in entity) standard.data = entity.data;
   if ('updatedAt' in entity) standard.updatedAt = entity.updatedAt;
-  if ('element' in entity) standard.element = entity.element;
-  if ('testData' in entity) standard.testData = entity.testData;
 
   return standard as T;
 };

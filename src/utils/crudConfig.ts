@@ -13,12 +13,6 @@ export type CrudEndpoints = {
     upsert?: EndpointConfig;
     delete?: EndpointConfig;
   };
-  customElements?: {
-    list?: EndpointConfig;
-    get?: EndpointConfig;
-    upsert?: EndpointConfig;
-    delete?: EndpointConfig;
-  };
 };
 
 export type CrudConfig = {
@@ -37,12 +31,6 @@ const defaultConfig: CrudConfig = {
       get: '/api/print/templates/{id}',
       upsert: '/api/print/templates',
       delete: '/api/print/templates/{id}'
-    },
-    customElements: {
-      list: '/api/print/custom-elements',
-      get: '/api/print/custom-elements/{id}',
-      upsert: '/api/print/custom-elements',
-      delete: '/api/print/custom-elements/{id}'
     }
   },
   headers: {
@@ -56,8 +44,7 @@ const mergeEndpoints = (base: CrudEndpoints, next?: CrudEndpoints): CrudEndpoint
   if (!next) return { ...base };
   return {
     baseUrl: next.baseUrl ?? base.baseUrl,
-    templates: { ...base.templates, ...next.templates },
-    customElements: { ...base.customElements, ...next.customElements }
+    templates: { ...base.templates, ...next.templates }
   };
 };
 

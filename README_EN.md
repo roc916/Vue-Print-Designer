@@ -126,9 +126,6 @@ This command builds the component library first, then uses `dumi build` for the 
 - Template storage: `src/state/templates.ts` (replace with your API if needed)
 - Variables and template data: `setVariables` / `loadTemplateData` on `PrintDesignerHandle`
 
-Custom element extension guide: [docs/en/guide/custom-element.md](https://github.com/0ldFive/Vue-Print-Designer/blob/master/docs/en/guide/custom-element.md)
-
-
 
 ## Project Structure
 

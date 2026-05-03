@@ -127,26 +127,8 @@ export interface Page {
   elements: PrintElement[];
 }
 
-export interface CustomElementTemplate {
-  id: string;
-  name: string;
-  element: PrintElement;
-  testData?: Record<string, any>;
-  system?: boolean;
-  editable?: boolean;
-  deletable?: boolean;
-  copyable?: boolean;
-  permissions?: {
-    system?: boolean;
-    editable?: boolean;
-    deletable?: boolean;
-    copyable?: boolean;
-  };
-  ext?: Record<string, any>;
-}
-
 export type ListContextMenuMode = 'replace' | 'append';
-export type ListContextMenuSource = 'template' | 'customElement';
+export type ListContextMenuSource = 'template';
 
 export interface ListContextMenuActionContext {
   source: ListContextMenuSource;
@@ -210,50 +192,15 @@ export interface TemplateListTag {
   color?: string;
 }
 
-export interface CustomElementEditSnapshot {
-  pages: Page[];
-  historyPast: Page[][];
-  historyFuture: Page[][];
-  canvasSize: Size;
-  guides: Guide[];
-  zoom: number;
-  showGrid: boolean;
-  showMarginLines: boolean;
-  showCornerMarkers: boolean;
-  headerHeight: number;
-  footerHeight: number;
-  showHeaderLine: boolean;
-  showFooterLine: boolean;
-  showMinimap: boolean;
-  canvasBackground: string;
-  pageSpacingX?: number;
-  pageSpacingY?: number;
-  unit?: 'mm' | 'px' | 'pt' | 'in' | 'cm';
-  watermark?: WatermarkSettings;
-  testData?: Record<string, any>;
-  currentPageIndex: number;
-  selectedElementId: string | null;
-  selectedElementIds: string[];
-  selectedGuideId: string | null;
-  highlightedGuideId: string | null;
-  highlightedEdge: 'left' | 'top' | 'right' | 'bottom' | null;
-}
-
 export interface DesignerState {
   pages: Page[];
   currentPageIndex: number;
-  customElements: CustomElementTemplate[];
-  customElementDetailCache: Record<string, any>;
   templateContextMenuConfig?: ListContextMenuConfig | null;
-  customElementContextMenuConfig?: ListContextMenuConfig | null;
   templateModalFormConfig?: TemplateModalFormConfig | null;
-  customElementModalFormConfig?: TemplateModalFormConfig | null;
   contextMenuEventEmitter?: ((eventName: string, detail: Record<string, any>) => void) | null;
   testData: Record<string, any>;
   variables: Record<string, any>;
   branding: BrandingSettings;
-  editingCustomElementId?: string | null;
-  customElementEditSnapshot?: CustomElementEditSnapshot | null;
   selectedElementId: string | null;
   selectedElementIds: string[];
   selectedGuideId: string | null;
